@@ -3,7 +3,7 @@
 # for category in game_categories:
 #     print( category['words'])
 import random
-from Drugs import *
+from Code.Assessment.categories import *
 
 multiple_categories = [esoteric_category, Technological_category, Basketball_category, Entrances_category, Colours_category, Cars_category, Weather_category, Sport_category]
 
