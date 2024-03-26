@@ -16,4 +16,3 @@ Entrances_category = {
 'category_name': "entrances", 'words' :[ 'Portal', 'Doorway', 'Key', 'Passport']
 }
 
-        
