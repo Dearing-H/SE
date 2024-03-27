@@ -11,7 +11,7 @@ input()
 print("Welcome")
 sleep(1)
 print('To', end=" ")
-sleep(2)
+sleep(1)
 
 print("""
 \u001b[31m  
@@ -43,11 +43,14 @@ multiple_categories = [esoteric_category, Technological_category, Basketball_cat
 def check_guess_against_Categories(guesses, multiple_categories, lives):
     for category in multiple_categories:
         if set(guesses) == set(category["words"]):  # Checking if the guessed words match the words in the category
-            print("You got it!")
-            return True, category  # Returning True for correct guess and the category
+            print("\u001b[32mYou got it!\033[0m ")
+            return True, category, lives  # Returning True for correct guess and the category
     lives -= 1  # Decreasing lives if the guess is incorrect
-    print(f"Sorry, that's incorrect. You have {lives} lives left.")
-    return False, None  # Returning False for incorrect guess and no category
+    # print(f"Sorry, that's incorrect. You have {lives} lives left.")
+    print(f"\033[91mSorry, that's incorrect. You have {lives} lives left.\033[0m")
+
+
+    return False, None, lives  # Returning False for incorrect guess and no category
 
 # Function to get user's guess input
 def get_guess():
@@ -75,9 +78,10 @@ def convert_flat_list_into_grid(flat_list):
 
 # Function to run the game with chosen categories
 def chosen_categories():
+    game_won = False
     lives = 4  # Initial number of lives
     game_categories = []  # Empty list to store chosen categories
-    
+    guessed_correct_count = 0 
     # Randomly select and add categories to the game
     for _ in range(4):
         random_index = random.randint(0, len(multiple_categories) - 1)  # Random index for selecting a category
@@ -90,20 +94,32 @@ def chosen_categories():
             flat_list.append(word)  # Add words from each category to the flat list
 
     random.shuffle(flat_list)  # Shuffle the flat list to randomize word positions in the grid
-    correct_words = set()  # Empty set to store correct words guessed by the user
+    correct_words = []  # Empty set to store correct words guessed by the user
     print_grid(convert_flat_list_into_grid(flat_list), correct_words)  # Print the initial game grid
 
-    while lives > 0:  # Loop until lives run out
+    while lives > 0 and game_won == False:  # Loop until lives run out
         guesses = get_guess()  # Get user's guesses
-        correct_guess, correct_category = check_guess_against_Categories(guesses, game_categories, lives)  # Check if guesses are correct
+        correct_guess, correct_category, lives = check_guess_against_Categories(guesses, game_categories, lives)  # Check if guesses are correct
+        # print(f"correct category variable currently is: {correct_category}")
+        # print(f"correct words variable currently is: {correct_words}")
         if correct_guess:
-            correct_words.update(set(correct_category["words"]))  # Update the set of correct words with words from the correct category
-            flat_list = list(correct_words) + random.sample([word for word in flat_list if word not in correct_words], len(flat_list) - len(correct_words))  # Move correct words to the top and shuffle the rest
+            guessed_correct_count  +=1
+
+            correct_words.extend(correct_category["words"])  # Update the set of correct words with words from the correct category
+            
+            # print(f"correct words variable updated to : {correct_words}")
+            flat_list = correct_words + random.sample([word for word in flat_list if word not in correct_words], len(flat_list) - len(correct_words))  # Move correct words to the top and shuffle the rest
+            # print(f"flat list currently is: {flat_list}")
+            
+            if guessed_correct_count == 4:
+                game_won = True
             print_grid(convert_flat_list_into_grid(flat_list), correct_words)  # Print the updated game grid
-        lives -= 1  # Decrement lives after each guess
 
-    print("Game over! You ran out of lives.")  # Print game over message when lives run out
 
+    if game_won == False:
+        print("Game over! You ran out of lives.")  # Print game over message when lives run out
+    else:
+        print("You win at life")
     replay = input("Do you want to play again? (yes/no): ").lower()  # Ask the user if they want to play again
     if replay == "yes":
         chosen_categories()  # Restart the game if the user wants to play again
@@ -127,3 +143,4 @@ chosen_categories()
 # How to make a shuffle button that only shuffles the categories that have not been guessed correctly 
 # Make it not case sensitive
 # Make the the words not need dashes
+# When u get a guess correct correct text is green when wrong text is red 

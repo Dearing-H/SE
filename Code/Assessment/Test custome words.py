@@ -33,7 +33,7 @@
 # # try get a type writer effect
 # change the colours of the cateogrys once guessed correctly
 # create a feature that displays lives
-# create a shuffle
+# create a sh
 
 print("""
       
