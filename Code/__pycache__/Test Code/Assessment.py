@@ -15,7 +15,7 @@ grid = [["Word","Word","Word","Test"],
         ["Word","Word","Word","Word"],
         ["Word","Word","Word","Word"]]
 
-categories = [esoteric_category,Technological_category,Basketball_category,Entrances_category,Cryptic_category]
+categories = [esoteric_category,Technological_category,Basketball_category,Entrances_category,]
 
 row = 0
 for category in categories: #for eacch of the connections, access the dictionary

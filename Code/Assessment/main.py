@@ -39,34 +39,46 @@ sleep(2)
 multiple_categories = [esoteric_category, Technological_category, Basketball_category, Entrances_category, Colours_category, Cars_category, Weather_category, Sport_category, Shakespeare_category, 
                        Ancient_Military_category, Mythological_Creatures_category, Avant_Garde_Art_Movements, Quantum_Mechanics_Concepts, Literary_Devices, Fast_and_Furious_Locations]
 
+
 # Function to check user's guess against categories
-def check_guess_against_Categories(guesses, multiple_categories, lives):
+def check_guess_against_categories(guesses, multiple_categories, lives):
     for category in multiple_categories:
         if set(guesses) == set(category["words"]):  # Checking if the guessed words match the words in the category
-            print("\u001b[32mYou got it!\033[0m ")
+            print(f"\033[92mYou got it from {category['category_name']}!\033[0m")
             return True, category, lives  # Returning True for correct guess and the category
     lives -= 1  # Decreasing lives if the guess is incorrect
-    # print(f"Sorry, that's incorrect. You have {lives} lives left.")
     print(f"\033[91mSorry, that's incorrect. You have {lives} lives left.\033[0m")
+    return False, None, lives  # Returning False for incorrect guess
 
-
-    return False, None, lives  # Returning False for incorrect guess and no category
 
 # Function to get user's guess input
 def get_guess():
-    your_guesses = input("Type words separated by spaces: ")
-    guesses = your_guesses.split(" ")  # Splitting user input into a list of words
+    guesses = []
+    for i in range(4):
+        word = input(f"Please Enter word {i + 1}: ") # Getting words from the user and increasing the value of words by 1 so it would say Word 1 please, word 2 please and so on
+        guesses.append(word)
     return guesses
 
+
 # Function to print the game grid
+
 def print_grid(grid, correct_words):
     for row in grid:
-        print("+--------------------+--------------------+--------------------+--------------------+")
-        for col in row:
-            print("|{:^20}".format(col), end="")  # Formatting and printing each cell in the grid
-        print("|")
-    print("+--------------------+--------------------+--------------------+--------------------+")
+        row_correct = any(word in correct_words for word in row) #
+        if row_correct:
+            print_row_in_color(row, '\033[92m')  # Print correct row in green
+        else:
+            print_row_in_color(row, '\033[91m')  # Print incorrect row in red
+
     print("Correct words:", correct_words)  # Print the correct words guessed so far
+
+def print_row_in_color(row, color_code):
+    print(color_code + "+--------------------+--------------------+--------------------+--------------------+" + '\033[0m')
+    for col in row:
+        print(color_code + "|{:^20}".format(col), end="")  # Formatting and printing each cell in the grid
+    print(color_code + "|" + '\033[0m')
+
+
 
 # Function to convert a flat list into a grid
 def convert_flat_list_into_grid(flat_list):
@@ -99,7 +111,7 @@ def chosen_categories():
 
     while lives > 0 and game_won == False:  # Loop until lives run out
         guesses = get_guess()  # Get user's guesses
-        correct_guess, correct_category, lives = check_guess_against_Categories(guesses, game_categories, lives)  # Check if guesses are correct
+        correct_guess, correct_category, lives = check_guess_against_categories(guesses, game_categories, lives)  # Check if guesses are correct
         # print(f"correct category variable currently is: {correct_category}")
         # print(f"correct words variable currently is: {correct_words}")
         if correct_guess:
