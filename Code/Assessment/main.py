@@ -4,6 +4,35 @@
 
 import random
 from categories import *
+from time import sleep
+
+print("Start the game, PRESS ENTER")  # Unsure if needed as have two start commands, but it works for now
+input()
+print("Welcome")
+sleep(1)
+print('To', end=" ")
+sleep(2)
+
+print("""
+\u001b[31m  
+██████   ██████  ███████ ███████ ███    ██ ███    ██ ███████  ██████ ████████ ██  ██████  ███    ██ ███████ 
+██   ██ ██    ██ ██      ██      ████   ██ ████   ██ ██      ██         ██    ██ ██    ██ ████   ██ ██      
+██████  ██    ██ ███████ ███████ ██ ██  ██ ██ ██  ██ █████   ██         ██    ██ ██    ██ ██ ██  ██ ███████ 
+██   ██ ██    ██      ██      ██ ██  ██ ██ ██  ██ ██ ██      ██         ██    ██ ██    ██ ██  ██ ██      ██ 
+██████   ██████  ███████ ███████ ██   ████ ██   ████ ███████  ██████    ██    ██  ██████  ██   ████ ███████ 
+\u001b[37m
+
+""")
+
+sleep(1)
+print("Welcome to BOSSNNECTIONS, this is an imtation of the fan-favourite New York Times Game Connections.")
+sleep(1)
+print("To Play, you  will need to connect four items from the same categories.")
+sleep(1)
+print("The Categories vary in diffucluty, GOOD LUCK AND HAVE FUN. Press Enter To Start!")
+input()
+
+sleep(2)
 
 
 # List of multiple categories from the imported dictionaries
@@ -83,3 +112,18 @@ def chosen_categories():
 
 # Run the chosen_categories function to start the game
 chosen_categories()
+
+
+
+# def shuffle_and_print(lst, correct_set):
+#     # (""Shuffles a given list")
+#     random.shuffle(lst)
+#     print_grid(lst, correct_set)
+
+
+# issues 
+# The grid reshuffles when the categories are guessed correctly
+# How to change colours if guessed correctly
+# How to make a shuffle button that only shuffles the categories that have not been guessed correctly 
+# Make it not case sensitive
+# Make the the words not need dashes
