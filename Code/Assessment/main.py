@@ -5,6 +5,13 @@
 import random
 from categories import *
 from time import sleep
+import sys
+
+# from Type_Writer_test_one import
+
+
+
+
 
 print("Start the game, PRESS ENTER")  # Unsure if needed as have two start commands, but it works for now
 input()
@@ -39,7 +46,6 @@ sleep(2)
 multiple_categories = [esoteric_category, Technological_category, Basketball_category, Entrances_category, Colours_category, Cars_category, Weather_category, Sport_category, Shakespeare_category, 
                        Ancient_Military_category, Mythological_Creatures_category, Avant_Garde_Art_Movements, Quantum_Mechanics_Concepts, Literary_Devices, Fast_and_Furious_Locations]
 
-
 # Function to check user's guess against categories
 def check_guess_against_categories(guesses, multiple_categories, lives):
     for category in multiple_categories:
@@ -55,12 +61,51 @@ def check_guess_against_categories(guesses, multiple_categories, lives):
 def get_guess():
     guesses = []
     for i in range(4):
-        word = input(f"Please Enter word {i + 1}: ") # Getting words from the user and increasing the value of words by 1 so it would say Word 1 please, word 2 please and so on
+        word = input(f"Please Enter word {i + 1}: ")# Getting words from the user and increasing the value of words by 1 so it would say Word 1 please, word 2 please and so on
         guesses.append(word)
     return guesses
 
 
 # Function to print the game grid
+# Function to print the game grid with guessed words and colors
+
+
+
+
+
+
+
+# def print_grid(grid, guessed_words):
+#     for row in grid:
+#         row_colors = []  # List to store color codes for each cell in the row
+#         for col in row:
+#             if col in guessed_words:  # Check if the word has been guessed
+#                 category_color = next((category['color'] for category in word_categories if col in category['words']), 'white')  # Get the color code based on the category
+#                 row_colors.append(category_color)
+#             else:
+#                 row_colors.append('white')  # Default to white if the word hasn't been guessed
+#         print_row_in_color(row, row_colors)  # Print the row with color codes
+
+# # Function to print a row with specified color codes for each cell
+# def print_row_in_color(row, color_codes):
+#     print("+--------------------+--------------------+--------------------+--------------------+")
+#     for col, color_code in zip(row, color_codes):
+#         print(f"|{'':<20}", end="")
+#     print("|")
+#     for col, color_code in zip(row, color_codes):
+#         print(f"|{col:^20}", end="")
+#     print("|")
+#     for col, color_code in zip(row, color_codes):
+#         print(f"|{'':<20}", end="")
+#     print("|")
+#     print("+--------------------+--------------------+--------------------+--------------------+")
+
+
+
+
+
+
+
 
 def print_grid(grid, correct_words):
     for row in grid:
@@ -70,14 +115,14 @@ def print_grid(grid, correct_words):
         else:
             print_row_in_color(row, '\033[91m')  # Print incorrect row in red
 
-    print("Correct words:", correct_words)  # Print the correct words guessed so far
+    # print("Correct words:", correct_words)  # Print the correct words guessed so far
 
 def print_row_in_color(row, color_code):
     print(color_code + "+--------------------+--------------------+--------------------+--------------------+" + '\033[0m')
     for col in row:
         print(color_code + "|{:^20}".format(col), end="")  # Formatting and printing each cell in the grid
     print(color_code + "|" + '\033[0m')
-
+    print(color_code + "+--------------------+--------------------+--------------------+--------------------+" + '\033[0m')
 
 
 # Function to convert a flat list into a grid
@@ -156,3 +201,6 @@ chosen_categories()
 # Make it not case sensitive
 # Make the the words not need dashes
 # When u get a guess correct correct text is green when wrong text is red 
+
+# if"Shuffle" get_guess
+# input from player to shuffle
