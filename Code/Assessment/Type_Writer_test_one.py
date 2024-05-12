@@ -26,7 +26,7 @@ sentences = [
     
     "Welcome to BOSSNNECTIONS, this is an imtation of the fan-favourite New York Times Game Connections.",
     "To Play, you  will need to connect four items from the same categories.",
-    "The Categories vary in diffucluty, GOOD LUCK AND HAVE FUN. Press Enter To Start!"
+    "The Categories vary in diffucluty, GOOD LUCK AND HAVE FUN."
 ]
 
 # Typing and Deleting speed in seconds

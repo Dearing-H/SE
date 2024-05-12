@@ -6,19 +6,20 @@ import random
 from categories import *
 from time import sleep
 import sys
-
-# from Type_Writer_test_one import
-
+import time
 
 
 
 
-print("Start the game, PRESS ENTER")  # Unsure if needed as have two start commands, but it works for now
+
+
+
+print("Start the game, PRESS ENTER")  
 input()
 print("Welcome")
 sleep(1)
 print('To', end=" ")
-sleep(1)
+sleep(1) # Delays the text from being displayed by 1  second so it can be read properly
 
 print("""
 \u001b[31m  
@@ -32,19 +33,60 @@ print("""
 """)
 
 sleep(1)
-print("Welcome to BOSSNNECTIONS, this is an imtation of the fan-favourite New York Times Game Connections.")
-sleep(1)
-print("To Play, you  will need to connect four items from the same categories.")
-sleep(1)
-print("The Categories vary in diffucluty, GOOD LUCK AND HAVE FUN. Press Enter To Start!")
-input()
+# Function to create the typewriter effect
+import sys
+import time
 
-sleep(2)
+import sys
+import time
 
+def typewriter_effect(sentence, type_delay, delete_delay):
+    # Loop through each character in the sentence
+    for char in sentence:
+        # Write, display and delay
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(type_delay)
+
+    # Pause after printing the entire sentence
+    time.sleep(1)
+
+    # Loop to delete the sentence
+    for _ in sentence:
+        # Write backspace, space, delete and delay
+        sys.stdout.write('\b \b')
+        sys.stdout.flush()
+        time.sleep(delete_delay)
+
+# List of sentences to display in typewriter effect
+sentences = [
+    "Welcome to BOSSNNECTIONS, this is an imitation of the fan-favorite New York Times Game Connections.",
+    "To Play, you will need to connect four items from the same categories.",
+    "The Categories vary in difficulty, GOOD LUCK AND HAVE FUN."
+]
+
+# Typing and Deleting speed in seconds
+type_delay = 0.05   
+delete_delay = 0.04
+
+for sentence in sentences:
+    # Call the typewriter_effect function
+    typewriter_effect(sentence, type_delay, delete_delay)
+
+    # Print a carriage return to overwrite the sentence
+    print('\r', end='')
+
+# Clear the console after displaying all sentences
+print('\033[K', end='')
+
+sleep(1)
 
 # List of multiple categories from the imported dictionaries
 multiple_categories = [esoteric_category, Technological_category, Basketball_category, Entrances_category, Colours_category, Cars_category, Weather_category, Sport_category, Shakespeare_category, 
-                       Ancient_Military_category, Mythological_Creatures_category, Avant_Garde_Art_Movements, Quantum_Mechanics_Concepts, Literary_Devices, Fast_and_Furious_Locations]
+                       Ancient_Military_category, Mythological_Creatures_category, Avant_Garde_Art_Movements, Quantum_Mechanics_Concepts, Literary_Devices, Fast_and_Furious_Locations,
+                       Artistic_category, Musical_category, Culinary_category, Historical_category, Geographical_category, Literary_Types_category, Scientific_category, Cultural_category, Fashion_category, 
+                       Nature_category, Business_category, Medical_category, Educational_category, Political_category, Environmental_category
+                       ]
 
 # Function to check user's guess against categories
 def check_guess_against_categories(guesses, multiple_categories, lives):
@@ -66,56 +108,16 @@ def get_guess():
     return guesses
 
 
-# Function to print the game grid
-# Function to print the game grid with guessed words and colors
-
-
-
-
-
-
-
-# def print_grid(grid, guessed_words):
-#     for row in grid:
-#         row_colors = []  # List to store color codes for each cell in the row
-#         for col in row:
-#             if col in guessed_words:  # Check if the word has been guessed
-#                 category_color = next((category['color'] for category in word_categories if col in category['words']), 'white')  # Get the color code based on the category
-#                 row_colors.append(category_color)
-#             else:
-#                 row_colors.append('white')  # Default to white if the word hasn't been guessed
-#         print_row_in_color(row, row_colors)  # Print the row with color codes
-
-# # Function to print a row with specified color codes for each cell
-# def print_row_in_color(row, color_codes):
-#     print("+--------------------+--------------------+--------------------+--------------------+")
-#     for col, color_code in zip(row, color_codes):
-#         print(f"|{'':<20}", end="")
-#     print("|")
-#     for col, color_code in zip(row, color_codes):
-#         print(f"|{col:^20}", end="")
-#     print("|")
-#     for col, color_code in zip(row, color_codes):
-#         print(f"|{'':<20}", end="")
-#     print("|")
-#     print("+--------------------+--------------------+--------------------+--------------------+")
-
-
-
-
-
-
-
-
 def print_grid(grid, correct_words):
     for row in grid:
-        row_correct = any(word in correct_words for word in row) #
+        row_correct = any(word in correct_words for word in row) 
+        line = ' '.join([letter if
         if row_correct:
             print_row_in_color(row, '\033[92m')  # Print correct row in green
         else:
             print_row_in_color(row, '\033[91m')  # Print incorrect row in red
 
-    # print("Correct words:", correct_words)  # Print the correct words guessed so far
+    print("Correct words:", correct_words)  # Print the correct words guessed so far
 
 def print_row_in_color(row, color_code):
     print(color_code + "+--------------------+--------------------+--------------------+--------------------+" + '\033[0m')
@@ -157,17 +159,16 @@ def chosen_categories():
     while lives > 0 and game_won == False:  # Loop until lives run out
         guesses = get_guess()  # Get user's guesses
         correct_guess, correct_category, lives = check_guess_against_categories(guesses, game_categories, lives)  # Check if guesses are correct
-        # print(f"correct category variable currently is: {correct_category}")
-        # print(f"correct words variable currently is: {correct_words}")
+        
         if correct_guess:
             guessed_correct_count  +=1
 
             correct_words.extend(correct_category["words"])  # Update the set of correct words with words from the correct category
             
-            # print(f"correct words variable updated to : {correct_words}")
+           
             flat_list = correct_words + random.sample([word for word in flat_list if word not in correct_words], len(flat_list) - len(correct_words))  # Move correct words to the top and shuffle the rest
-            # print(f"flat list currently is: {flat_list}")
             
+        
             if guessed_correct_count == 4:
                 game_won = True
             print_grid(convert_flat_list_into_grid(flat_list), correct_words)  # Print the updated game grid
@@ -176,7 +177,7 @@ def chosen_categories():
     if game_won == False:
         print("Game over! You ran out of lives.")  # Print game over message when lives run out
     else:
-        print("You win at life")
+        print("You WIN!!!!!, Congratulations")
     replay = input("Do you want to play again? (yes/no): ").lower()  # Ask the user if they want to play again
     if replay == "yes":
         chosen_categories()  # Restart the game if the user wants to play again
@@ -188,19 +189,3 @@ chosen_categories()
 
 
 
-# def shuffle_and_print(lst, correct_set):
-#     # (""Shuffles a given list")
-#     random.shuffle(lst)
-#     print_grid(lst, correct_set)
-
-
-# issues 
-# The grid reshuffles when the categories are guessed correctly
-# How to change colours if guessed correctly
-# How to make a shuffle button that only shuffles the categories that have not been guessed correctly 
-# Make it not case sensitive
-# Make the the words not need dashes
-# When u get a guess correct correct text is green when wrong text is red 
-
-# if"Shuffle" get_guess
-# input from player to shuffle
