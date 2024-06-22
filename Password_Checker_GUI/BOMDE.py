@@ -1,6 +1,7 @@
 import gooeypie as gp
 
 
+
 # Create the main application window
 app = gp.GooeyPieApp('BOSSBREAK')
 
@@ -9,9 +10,26 @@ my_subwindow = gp.Window(app, 'Help')
 my_subwindow.width = 400
 my_subwindow.height = 300
 
+my_subwindow.set_grid(3, 1)
+
+help_text = gp.Label(my_subwindow, 'BOSSBREAk is a programm that is desgined to provide you with a strength level of your password')
+my_subwindow.add(help_text, 1, 1, align='center')
+
+my_subwindow2 = gp.Window(app, 'About')
+my_subwindow2
+my_subwindow2.width = 400
+my_subwindow2.height = 300
+
+my_subwindow2.set_grid(3, 1)
+
+About_text = gp.Label(my_subwindow2, 'Hello')
+my_subwindow2.add(About_text, 1, 1, align='center')
+
+
+
 # Set app properties
 app.width = 600
-app.height = 400
+app.height = 300
 app.title = "BOSSBREAK"
 
 checkbox_true = "✅"
@@ -85,6 +103,9 @@ def toggle_password_visibility(event):
 def open_help_window(event):
     my_subwindow.show()
 
+def open_about_window(event):
+    my_subwindow2.show()
+    
 
 
 # Create buttons and add event listeners
@@ -93,9 +114,11 @@ show_password_checkbox = gp.Checkbox(app, 'Show password')
 show_password_checkbox.add_event_listener('change', toggle_password_visibility)
 
 check_btn2 = gp.Button(app, 'Help', open_help_window)
+check_btn3 = gp.Button(app, 'About', open_about_window)
+
 
 # Arrange components in the grid
-app.set_grid(10, 2)
+app.set_grid(11, 2)
 app.add(password_input, 1, 1, colspan=2)
 app.add(show_password_checkbox, 2, 1, colspan=2)
 app.add(check_btn, 3, 1, colspan=2)
@@ -105,5 +128,6 @@ app.add(num_lbl, 6, 1, colspan=2)
 app.add(special_lbl, 7, 1, colspan=2)
 app.add(score_lbl, 8, 1, colspan=2)
 app.add(check_btn2, 10, 1, colspan=2)
+app.add(check_btn3, 10, 2, colspan=2)
 
 app.run()
