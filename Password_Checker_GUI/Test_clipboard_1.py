@@ -1,8 +1,5 @@
 import gooeypie as gp
-import pyhibp
-from pyhibp import pwnedpasswords as pw
-
-
+import pyperclip
 
 # Create the main application window
 app = gp.GooeyPieApp('BOSSBREAK')
@@ -14,14 +11,13 @@ my_subwindow.height = 300
 
 my_subwindow.set_grid(3, 1)
 
-help_text = gp.Label(my_subwindow, 'BOSSBREAk Desgined and Developed by Harrison Dearing is a programm that is desgined to provide you with a strength level of your password.'
-                    '"BOSSBREAK has been relased using A GUI public Licencse, currently equppied with the following features'
-                     'Password Length: Longer passwords are stronger and more effective, choose between 10, 12 and 14 '
-                     'Password Complexitiy: Mix of ')
+help_text = gp.Label(my_subwindow, 'BOSSBREAk Designed and Developed by Harrison Dearing is a program that is designed to provide you with a strength level of your password.'
+                    'BOSSBREAK has been released using A GUI public License, currently equipped with the following features'
+                    'Password Length: Longer passwords are stronger and more effective, choose between 10, 12 and 14 '
+                    'Password Complexity: Mix of ')
 my_subwindow.add(help_text, 1, 1, align='center')
 
 my_subwindow2 = gp.Window(app, 'About')
-my_subwindow2
 my_subwindow2.width = 400
 my_subwindow2.height = 300
 
@@ -30,15 +26,13 @@ my_subwindow2.set_grid(3, 1)
 About_text = gp.Label(my_subwindow2, 'Hello')
 my_subwindow2.add(About_text, 1, 1, align='center')
 
-
-
 # Set app properties
 app.width = 600
 app.height = 300
-app.title = "BOSSBREAK"
+app.title = 'BOSSBREAK'
 
-checkbox_true = "✅"
-checkbox_false = "❌"
+checkbox_true = '✅'
+checkbox_false = '❌'
 
 # Create UI components
 password_input = gp.Secret(app)
@@ -83,7 +77,7 @@ def check_password_strength(event):
         score += 5
 
     # Check for special characters
-    special_chars = "!@#$%^&*(),.?\":{}|<>"
+    special_chars = '!@#$%^&*(),.?\:{}|<>'
     if any(char in special_chars for char in password):
         special_lbl.text = 'Password contains special characters'
         score += 20
@@ -94,7 +88,7 @@ def check_password_strength(event):
     # Check for repeated characters
     if len(password) != len(set(password)):
         score += 10
-    
+
     # Calculate and display the score
     score_lbl.text = f'Your password score is {score}'
 
@@ -110,8 +104,11 @@ def open_help_window(event):
 
 def open_about_window(event):
     my_subwindow2.show()
-    
 
+def copy_to_clipboard(event):
+    text_to_copy = password_input.text
+    pyperclip.copy(text_to_copy)
+    status_lbl.text = "Text copied to clipboard!"
 
 # Create buttons and add event listeners
 check_btn = gp.Button(app, 'Check Password Strength', check_password_strength)
@@ -120,7 +117,8 @@ show_password_checkbox.add_event_listener('change', toggle_password_visibility)
 
 check_btn2 = gp.Button(app, 'Help', open_help_window)
 check_btn3 = gp.Button(app, 'About', open_about_window)
-
+copy_btn = gp.Button(app, 'Copy to Clipboard', copy_to_clipboard)
+status_lbl = gp.Label(app, '')
 
 # Arrange components in the grid
 app.set_grid(11, 2)
@@ -132,7 +130,9 @@ app.add(case_lbl, 5, 1, colspan=2)
 app.add(num_lbl, 6, 1, colspan=2)
 app.add(special_lbl, 7, 1, colspan=2)
 app.add(score_lbl, 8, 1, colspan=2)
-app.add(check_btn2, 10, 1, colspan=2)
-app.add(check_btn3, 10, 2, colspan=2)
+app.add(copy_btn, 9, 1, colspan=2)
+app.add(status_lbl, 10, 1, colspan=2)
+app.add(check_btn2, 11, 1)
+app.add(check_btn3, 11, 2)
 
 app.run()
