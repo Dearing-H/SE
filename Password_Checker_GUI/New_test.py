@@ -2,6 +2,7 @@ import gooeypie as gp
 import pyhibp
 from pyhibp import pwnedpasswords as pw
 import pyperclip
+from random import choice
 
 # Required: A descriptive user agent must be set describing the application consuming the HIBP API
 pyhibp.set_user_agent(ua="Awesome application/0.0.1 (An awesome description)")
@@ -12,25 +13,28 @@ app = gp.GooeyPieApp('BOSSBREAK')
 # Create the second window
 my_subwindow = gp.Window(app, 'Help')
 my_subwindow.width = 400
-my_subwindow.height = 300
+my_subwindow.height = 400
 my_subwindow.set_grid(3, 1)
-help_text = gp.Label(my_subwindow, 'BOSSBREAK designed and developed by Harrison Dearing is a'
-                     'program that is designed to provide you with a strength level of your password.'
-                    'BOSSBREAK has been released using a GUI public license, currently equipped with the following features:'
-                    'Password Length: Longer passwords are stronger and more effective, choose between 10, 12, and 14 '
-                    'Password Complexity: Mix of ')
+help_text = gp.Label(my_subwindow, """BOSSBREAK designed and developed by Harrison Dearing is a 
+program that is designed to provide you with a strength level of your password. \n
+BOSSBREAK has been released using a GUI public license, currently equipped with the following features: 
+Password Length: Longer passwords are stronger and more effective, choose between 10, 12, and 14. 
+Password Complexity""")
 my_subwindow.add(help_text, 1, 1, align='center')
 
 my_subwindow2 = gp.Window(app, 'About')
 my_subwindow2.width = 400
 my_subwindow2.height = 300
 my_subwindow2.set_grid(3, 1)
-About_text = gp.Label(my_subwindow2, 'Hello')
-my_subwindow2.add(About_text, 1, 1, align='center')
+about_text = gp.Label(my_subwindow2, 'My Name is Harrison and I am student studying at Saint Augustines\n'
+                      )
+my_subwindow2.add(about_text, 1, 1, align='center')
 
 # Set app properties
-app.width = 600
-app.height = 300
+app.width = 450
+app.height = 250
+app.resizable_horizontal = False
+app.resizable_vertical = False
 app.title = "BOSSBREAK"
 
 checkbox_true = "✅"
@@ -51,42 +55,41 @@ def check_password_strength(event):
 
     # Check password length
     if len(password) < 12:
-        len_lbl.text = 'Password is too short, minimum 12 characters'
+        len_lbl.text = ' ❌ Password is too short, minimum 12 characters'
         score += 10
     elif len(password) > 16:
-        len_lbl.text = 'Password is too long, maximum 16 characters'
+        len_lbl.text = ' ❌ Password is too long, maximum 16 characters'
         score += 5
     else:
-        len_lbl.text = 'Password length is good'
+        len_lbl.text = ' ✅ Password length is good'
         score += 20
-        print(f"Added {score}")
 
-            # Check for uppercase and lowercase characters
+    # Check for uppercase and lowercase characters
     if password.islower():
-        case_lbl.text = 'Password is all lowercase, add uppercase letters'
+        case_lbl.text = ' ❌ Password is all lowercase, add uppercase letters'
         score += 5
     elif password.isupper():
-        case_lbl.text = 'Password is all uppercase, add lowercase letters'
+        case_lbl.text = ' ❌ Password is all uppercase, add lowercase letters'
         score += 5
     else:
-        case_lbl.text = 'Password has mixed case characters'
+        case_lbl.text = ' ✅ Password has mixed case characters'
         score += 20
 
     # Check for numbers
     if any(char.isdigit() for char in password):
-        num_lbl.text = 'Password contains numbers'
+        num_lbl.text = ' ✅ Password contains numbers'
         score += 20
     else:
-        num_lbl.text = 'Password should contain at least one number'
+        num_lbl.text = ' ❌ Password should contain at least one number'
         score += 5
 
     # Check for special characters
     special_chars = "!@#$%^&*(),.?\":{}|<>"
     if any(char in special_chars for char in password):
-        special_lbl.text = 'Password contains special characters'
+        special_lbl.text = ' ✅ Password contains special characters'
         score += 20
     else:
-        special_lbl.text = 'Password should contain at least one special character'
+        special_lbl.text = ' ❌ Password should contain at least one special character'
         score += 5
 
     # Check for repeated characters
@@ -97,18 +100,18 @@ def check_password_strength(event):
     score_lbl.text = f'Your password score is {score}'
 
     # Check if the password has been breached
-    # resp = pw.is_password_breached(password=password)
-    # if resp:
-    #     breach_lbl.text = f'Password breached! This password was used {resp} time(s) before.'
-    # else:
-    #     breach_lbl.text = 'Password not found in breach database.'
+    resp = pw.is_password_breached(password=password)
+    if resp:
+        breach_lbl.text = f'Password breached! This password was used {resp} time(s) before.'
+    else:
+        breach_lbl.text = 'Password not found in breach database.'
 
 def toggle_password_visibility(event):
     password_input.secret = not password_input.secret
     if password_input.secret:
-        show_password_checkbox.text = 'Show password '
+        show_password_checkbox.text = 'Show password'
     else:
-        show_password_checkbox.text = 'Hide password ' 
+        show_password_checkbox.text = 'Hide password'
 
 def open_help_window(event):
     my_subwindow.show()
@@ -123,21 +126,37 @@ def copy_to_clipboard(event):
 
 # Create buttons and add event listeners
 check_btn = gp.Button(app, 'Check Password Strength', check_password_strength)
-show_password_checkbox = gp.Checkbox(app, 'Show password')
+show_password_checkbox = gp.Checkbox(app, '🔒')
 show_password_checkbox.add_event_listener('change', toggle_password_visibility)
 
 my_labelcontainer = gp.LabelContainer(app, None)
-my_labelcontainer.set_grid(1,3)
+my_labelcontainer.set_grid(1, 3)
 
 check_btn2 = gp.Button(my_labelcontainer, 'Help', open_help_window)
 check_btn3 = gp.Button(my_labelcontainer, 'About', open_about_window)
 copy_btn = gp.Button(my_labelcontainer, 'Copy to Clipboard', copy_to_clipboard)
 status_lbl = gp.Label(app, '')
 
+# Create a style label
+colors = ['DarkSlateGray']
+fonts = ['times new roman']
+styles = ['normal']
+
+def change_style(event):
+    styled_label.color = choice(colors)
+    styled_label.background_color = choice(colors)
+    styled_label.font_style = choice(styles)
+    styled_label.font_name = choice(fonts)
+
+styled_label = gp.StyleLabel(app, 'BOSSBREAK')
+styled_label.font_size = 30
+styled_label.align = 'left'
+
 # Arrange components in the grid
-app.set_grid(12, 3)
-app.add(password_input, 1, 1, colspan=2)
-app.add(show_password_checkbox, 2, 1, colspan=2)
+app.set_grid(13, 3)
+app.add(styled_label, 1, 1, colspan=3,)
+app.add(show_password_checkbox, 2, 2, colspan=1, align = 'left')
+app.add(password_input, 2, 1, colspan=2)
 app.add(check_btn, 3, 1, colspan=2)
 app.add(len_lbl, 4, 1, colspan=2)
 app.add(case_lbl, 5, 1, colspan=2)
@@ -150,7 +169,7 @@ my_labelcontainer.add(check_btn2, 1, 1)
 my_labelcontainer.add(check_btn3, 1, 2)
 my_labelcontainer.add(copy_btn, 1, 3)
 
-app.add(my_labelcontainer, 10, 1, colspan=3, fill=True)
-app.add(status_lbl, 12, 1, colspan=2)
+app.add(my_labelcontainer, 10, 1, colspan=3, fill=True) 
+app.add(status_lbl, 11, 1, colspan=2)
 
 app.run()
