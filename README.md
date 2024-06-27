@@ -1,13 +1,15 @@
 ![alt text](https://www.cartoonbrew.com/wp-content/uploads/2019/05/bossbaby2.jpg)
-# Bossnnections - Connections in Python
+# BOSSBREAK - Password Checker
 
-This is an imitation of the fan-favorite New York Times Game Connections, coded through a Python format. This was created for my Yr 11 Software Engineering Assessment.
+This password checker was created to ensure the safety of everyday people coded through Python format for my Yr 11 Software Engineering Assessment.
+
 
 
 ## How to Play
-You will be Displayed with a 4x4 grid, populated with 16 words that fit into 4 categories. Your Objective is to guess which 4 words fit into the same category. Once you have gussed a category correct it will be floated to the top and highligted as correct, and if you are incorrect one life will be deducted from the 4 you have at the start of each game. Once you have guessed all categories correctly their is a win message and replay feature.
+You will be provided with a window that has an imput box, once you type a password into the imput box and then select the check password feature. this feature will then provide you with all the issue's that can been seen in your code and its overall strength level. This feedback is aimed for you to reconstruct the password until you have built something that is effective and protective
+
 ## Installation
-You install BOSSNNECTIONS by cloing the repository 
+You install BOSSBREAK by cloing the repository 
 https://github.com/Dearing-H/SE/tree/main/Code/Assessment
 
 -Once you have clone the repository, you will need to find it in a Python interpeter and then run it
