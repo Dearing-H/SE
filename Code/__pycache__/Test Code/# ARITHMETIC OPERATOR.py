@@ -1,3 +1,0 @@
-# ARITHMETIC OPERATOR
-
-Print (5+5) 
