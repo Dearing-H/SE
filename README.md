@@ -10,7 +10,7 @@ You will be provided with a window that has an imput box, once you type a passwo
 
 ## Installation
 You install BOSSBREAK by cloing the repository 
-https://github.com/Dearing-H/SE/tree/main/Code/Assessment
+https://github.com/Dearing-H/SE/blob/main/Password_Checker_GUI/Harrison_Dearing_Assessment_2.py
 
 -Once you have clone the repository, you will need to find it in a Python interpeter and then run it
 - Once to you have run it you can play as much as you like
