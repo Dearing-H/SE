@@ -5,7 +5,7 @@ This password checker was created to ensure the safety of everyday people coded 
 
 
 
-## How to Play
+## How to Use
 You will be provided with a window that has an imput box, once you type a password into the imput box and then select the check password feature. this feature will then provide you with all the issue's that can been seen in your code and its overall strength level. This feedback is aimed for you to reconstruct the password until you have built something that is effective and protective
 
 ## Installation
