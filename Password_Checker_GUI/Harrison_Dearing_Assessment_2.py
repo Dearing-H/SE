@@ -14,6 +14,8 @@ app = gp.GooeyPieApp('BOSSBREAK')
 my_subwindow = gp.Window(app, 'Help')
 my_subwindow.width = 400
 my_subwindow.height = 100
+my_subwindow.resizable_horizontal = False
+my_subwindow.resizable_vertical = False
 my_subwindow.set_grid(3, 1)
 help_text = gp.Label(my_subwindow, """BOSSBREAK designed and developed by Harrison Dearing is a 
 program that is designed to provide you with a strength level of your password. \n
@@ -25,6 +27,8 @@ my_subwindow.add(help_text, 1, 1, align='left')
 my_subwindow2 = gp.Window(app, 'About')
 my_subwindow2.width = 400
 my_subwindow2.height = 100
+my_subwindow2.resizable_horizontal = False
+my_subwindow2.resizable_vertical = False
 my_subwindow2.set_grid(3, 1)
 about_text = gp.Label(my_subwindow2, """BOSSBREAK is a comprehensive password strength checking tool developed by Harrison Dearing. 
 Harrison is a dedicated student at Saint Augustine's, committed to creating applications that enhance security \n
